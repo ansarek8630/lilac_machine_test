@@ -10,8 +10,10 @@ import '../cubit/auth_cubit.dart';
 import '../../../core/components/otp_field.dart';
 
 class OtpScreen extends StatelessWidget {
+  String phone;
   OtpScreen({
     super.key,
+    required this.phone
   });
 
   final TextEditingController f1 = TextEditingController();
@@ -35,11 +37,8 @@ class OtpScreen extends StatelessWidget {
               listeners: [
                 BlocListener<AuthCubit, AuthState>(
                   listener: (context, state) {
-                    if (state is OtpSent) {
-                      snackBar(context, state.message, Colors.green);
-                    } else if (state is OtpVerified) {
-                      Navigator.pushReplacementNamed(
-                          context, '/messages');
+                    if (state is OtpVerified) {
+                      Navigator.pushReplacementNamed(context, '/messages');
                     } else if (state is OtpVerificationFailed) {
                       snackBar(context, "Invalid OTP", Colors.red);
                     }
@@ -51,22 +50,22 @@ class OtpScreen extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      Row(
+                      const Row(
                         children: [
-                          const BackButtonWidget(),
+                          BackButtonWidget(),
                         ],
                       ),
-                  const Text(
-                    "Enter your verification\ncode",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1,
-                      fontFamily: "Poppins",
-                    ),
-                  ),
-                  const SizedBox(height: 35),
+                      const Text(
+                        "Enter your verification\ncode",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 1,
+                          fontFamily: "Poppins",
+                        ),
+                      ),
+                      const SizedBox(height: 35),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Row(
@@ -81,23 +80,24 @@ class OtpScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                     RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      text: 'Didn’t get anything? No worries, let’s try again.\n',
-                      style: const TextStyle(color: Colors.black),
-                      children: [
-                        TextSpan(
-                          text: 'Resend',
-                          style: const TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          recognizer: TapGestureRecognizer()..onTap = () {},
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          text:
+                              'Didn’t get anything? No worries, let’s try again.\n',
+                          style: const TextStyle(color: Colors.black),
+                          children: [
+                            TextSpan(
+                              text: 'Resend',
+                              style: const TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              recognizer: TapGestureRecognizer()..onTap = () {},
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
                     ],
                   ),
                   BlocBuilder<AuthCubit, AuthState>(
@@ -115,11 +115,11 @@ class OtpScreen extends StatelessWidget {
                               f4.text +
                               f5.text +
                               f6.text;
-              
+
                           if (otp.length != 6) {
                             snackBar(context, "Enter valid OTP", Colors.red);
                           } else {
-                            context.read<AuthCubit>().verifyOtp(otp);
+                            context.read<AuthCubit>().verifyOtp(otp,phone);
                           }
                         },
                         child: LargeButton(
