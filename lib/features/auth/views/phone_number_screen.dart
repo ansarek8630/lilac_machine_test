@@ -43,7 +43,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
             BlocListener<AuthCubit, AuthState>(
               listener: (context, state) {
                 if (state is PhoneVerfied) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => OtpScreen(),));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => OtpScreen(phone: state.phone,),));
                   snackBar(context, state.message, Colors.green);
                 } else if (state is AuthFailure) {
                   snackBar(context, state.message, Colors.red);

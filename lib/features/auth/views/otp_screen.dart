@@ -81,7 +81,7 @@ class OtpScreen extends StatelessWidget {
                         ),
                       ),
                       RichText(
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                         text: TextSpan(
                           text:
                               'Didn’t get anything? No worries, let’s try again.\n',
@@ -119,7 +119,7 @@ class OtpScreen extends StatelessWidget {
                           if (otp.length != 6) {
                             snackBar(context, "Enter valid OTP", Colors.red);
                           } else {
-                            context.read<AuthCubit>().verifyOtp(otp,phone);
+                            context.read<AuthCubit>().verifyOtp(int.parse(otp),phone);
                           }
                         },
                         child: LargeButton(

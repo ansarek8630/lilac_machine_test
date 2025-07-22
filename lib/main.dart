@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lilac_machine_test/features/auth/cubit/auth_cubit.dart';
-import 'package:lilac_machine_test/features/auth/views/otp_screen.dart';
 import 'package:lilac_machine_test/features/auth/views/phone_number_screen.dart';
 import 'package:lilac_machine_test/features/chat/views/chats.dart';
 import 'package:lilac_machine_test/features/chat/views/messages.dart';
-
 import 'core/constands/colors.dart';
 import 'features/splash/views/splash.dart';
 
@@ -32,7 +30,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/splash': (context) => const Splash(),
         '/phoneNumberScreen': (context) => PhoneNumberScreen(),
-        '/otpScreen': (context) => OtpScreen(),
         '/messages': (context) => Messages(),
         '/chats': (context) => const ChatScreen(),
       },

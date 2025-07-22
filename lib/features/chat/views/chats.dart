@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lilac_machine_test/core/constands/colors.dart';
-
 import '../../../core/components/chat_input_field.dart';
 import '../../../core/components/message_bubble.dart';
 

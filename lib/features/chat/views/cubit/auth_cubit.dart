@@ -1,10 +1,7 @@
 import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lilac_machine_test/data/models/get_otp.dart';
-
-import '../../../data/services/http_services.dart';
-
+import '../../../../data/services/http_services.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -23,7 +20,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> verifyOtp(int otp, String phone) async {
-      emit(OtpVerificationFailed());
+      emit(AuthLoading());
     try {
       final response = await HttpServices.verifyOtp(otp, phone);
       if (response["id"] != "") {

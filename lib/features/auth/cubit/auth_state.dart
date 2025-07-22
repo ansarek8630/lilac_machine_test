@@ -8,8 +8,9 @@ class AuthLoading extends AuthState {}
 
 class PhoneVerfied extends AuthState {
   final String message;
+  final String phone;
 
-  PhoneVerfied(this.message);
+  PhoneVerfied(this.message,this.phone);
 }
 
 class AuthFailure extends AuthState {
