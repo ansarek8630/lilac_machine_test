@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:lilac_machine_test/core/widgets/button.dart';
+import 'package:flutter/widgets.dart';
+import 'package:lilac_machine_test/core/components/button.dart';
 
 class Splash extends StatelessWidget {
   const Splash({super.key});
@@ -28,7 +29,7 @@ class Splash extends StatelessWidget {
                     "Connect. Meet. Love.\nWith Fliq Dating",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        // fontFamily: 'Poppins',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w700,
                         fontSize: 30,
                         letterSpacing: 0,
@@ -41,9 +42,9 @@ class Splash extends StatelessWidget {
               children: [
                 AuthButton(image: "assets/images/google_auth.png"),
                 AuthButton(image: "assets/images/facebook_auth.png"),
-                InkWell(
+                GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, "/")
+                    Navigator.pushNamed(context, '/phoneNumberScreen');
                   },
                   child: AuthButton(image: "assets/images/phone_auth.png")),
                 Padding(
