@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:lilac_machine_test/core/components/button.dart';
 
 class Splash extends StatelessWidget {
@@ -32,7 +31,7 @@ class Splash extends StatelessWidget {
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w700,
                         fontSize: 30,
-                        letterSpacing: 0,
+                        decoration: TextDecoration.none, 
                         color: Colors.white),
                   ),
                 )

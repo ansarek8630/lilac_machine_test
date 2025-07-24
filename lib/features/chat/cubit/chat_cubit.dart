@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lilac_machine_test/data/models/get_messages.dart';
 import '../../../data/services/http_services.dart';
 import 'chat_state.dart';
 
@@ -12,27 +13,11 @@ class ChatCubit extends Cubit<ChatState> {
   Future<void> getMesages() async {
     emit(ChatLoading());
     try {
-      final response = await HttpServices.getMessages();
-      if (response["id"] != "") {
-        emit(ChatSuccess(""));
-      } else {
-        emit(ChatFailure(""));
-      }
+      final GetMessages response = await HttpServices.getMessages();
+        emit(ChatSuccess(response));
     } catch (e) {
       log(e.toString());
       emit(ChatFailure(""));
     }
-  }
-
-  void startLoading() {
-    emit(ChatLoading());
-  }
-
-  void emitSuccess(String message) {
-    emit(ChatSuccess(message));
-  }
-
-  void emitFailure(String message) {
-    emit(ChatFailure(message));
   }
 }

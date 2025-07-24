@@ -51,9 +51,10 @@ class AuthButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(45),
           color: AppColors.primaryColor,
+          
           image: DecorationImage(
               image: AssetImage(image),
-              fit: BoxFit.fitWidth),
+              fit: BoxFit.fill),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.8),

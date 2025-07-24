@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/splash': (context) => const Splash(),
         '/phoneNumberScreen': (context) => PhoneNumberScreen(),
-        '/messages': (context) => Messages(),
-        '/chats': (context) => const ChatScreen(),
+        '/messages': (context) => const Messages(),
+        '/chats': (context) =>  ChatScreen(name: "",proPic: ""),
       },
     );
   }

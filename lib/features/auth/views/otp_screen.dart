@@ -39,9 +39,7 @@ class OtpScreen extends StatelessWidget {
                   listener: (context, state) {
                     if (state is OtpVerified) {
                       Navigator.pushReplacementNamed(context, '/messages');
-                    } else if (state is OtpVerificationFailed) {
-                      snackBar(context, "Invalid OTP", Colors.red);
-                    }
+                    } 
                   },
                 ),
               ],

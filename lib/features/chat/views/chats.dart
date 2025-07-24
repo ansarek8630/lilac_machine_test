@@ -1,64 +1,147 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:lilac_machine_test/core/constands/colors.dart';
-import '../../../core/components/chat_input_field.dart';
-import '../../../core/components/message_bubble.dart';
 
 class ChatScreen extends StatelessWidget {
-  const ChatScreen({super.key});
+  ChatScreen({super.key, required this.name, required this.proPic});
+
+  String name;
+  String proPic;
+
+  final List<Message> messages = [
+    Message(text: "Hi", isMe: true, time: "2:45 PM"),
+    
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      body: Column(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 60.0),
+             Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Row(
                 children: [
-                  BackButton(),
-                  Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: Colors.white, width: 2),
-                                    color: Colors.transparent,
-                                    image: const DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                          'https://www.kerala9.com/wp-content/gallery/nayantara/nayanthara-beautiful-images-003.jpeg'),
-                                    ),
-                                  ),
-                                ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: const BoxDecoration(
-                color: Color(0xFFF7F7F7),
-                borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-              ),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Center(
-                      child:
-                          Text("today", style: TextStyle(color: Colors.grey,fontSize: 8))),
-                  SizedBox(height: 20),
-                  MessageBubble(
-                    message: "Hi",
-                    time: "9:40 AM",
-                    isSender: true,
+                  const BackButton(),
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundImage: NetworkImage(
+                      proPic,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                   Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
             ),
-            ChatInputField(),
+
+            // Chat Messages
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: messages.length,
+                reverse: true,
+                itemBuilder: (context, index) {
+                  final message = messages[messages.length - 1 - index];
+                  return Align(
+                    alignment: message.isMe
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 14, vertical: 10),
+                          constraints: BoxConstraints(
+                            maxWidth: MediaQuery.of(context).size.width * 0.75,
+                          ),
+                          decoration: BoxDecoration(
+                            color: message.isMe
+                                ? AppColors.primaryColor
+                                : Colors.grey[300],
+                            borderRadius: BorderRadius.only(
+                              topLeft: const Radius.circular(16),
+                              topRight: const Radius.circular(16),
+                              bottomLeft:
+                                  Radius.circular(message.isMe ? 16 : 0),
+                              bottomRight:
+                                  Radius.circular(message.isMe ? 0 : 16),
+                            ),
+                          ),
+                          child: Text(
+                            message.text,
+                            style: TextStyle(
+                              color:
+                                  message.isMe ? Colors.white : Colors.black87,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          message.time,
+                          style: const TextStyle(
+                            color: Colors.black54,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+
+            // Message Input
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: const TextField(
+                        decoration: InputDecoration(
+                          hintText: "Type a message...",
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  const CircleAvatar(
+                    backgroundColor: AppColors.primaryColor,
+                    child: Icon(Icons.send, color: Colors.white),
+                  )
+                ],
+              ),
+            )
           ],
         ),
+      ),
     );
   }
+}
+
+class Message {
+  final String text;
+  final bool isMe;
+  final String time;
+
+  Message({required this.text, required this.isMe, required this.time});
 }

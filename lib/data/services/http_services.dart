@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:japx/japx.dart';
 import 'package:lilac_machine_test/data/models/get_otp.dart';
 
-import '../models/otp_verified.dart';
+import '../models/get_messages.dart';
 
 class HttpServices {
   static var baseurl = "https://test.myfliqapp.com/api/v1";
@@ -77,7 +77,7 @@ class HttpServices {
     try {
       final response = await http.get(
         Uri.parse(
-          "$baseurl/auth/registration-otp-codes/actions/phone/verify-otp",
+          "$baseurl/chat/chat-messages/queries/contact-users",
         ),
         headers: {
           'Authorization':
@@ -88,7 +88,7 @@ class HttpServices {
       if (response.statusCode == 200) {
         final Map<String, dynamic> rawJson = jsonDecode(response.body);
         final Map<String, dynamic> flattenedJson = Japx.decode(rawJson);
-        return otpVerifiedFromJson(flattenedJson['data']);
+        return getMessagesFromJson(response.body);
       } else {
       log("OTP verification failed: ${response.statusCode}");
         log("Body: ${response.body}");
